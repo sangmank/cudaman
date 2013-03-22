@@ -1,6 +1,6 @@
 SECTION ?= 3
 OUT_DIR ?= out
-INSTALL_DIR ?= ~/man/man${SECTION}
+INSTALL_DIR ?= ~/man/man$(SECTION)
 
 SHELL := /bin/bash
 
