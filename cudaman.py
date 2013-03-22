@@ -12,18 +12,19 @@ rec_tag = re.compile(r'<a[^>]* href="#([^"]*)"[^>]*>')
 rec_unfound_tag = re.compile(r'<a[^>]* href="#"[^>]*>')
 
 def replace_tag(output):
-	tags = [m.group(1) for m in rec_tag.finditer(output)]
-	for tag in tags:
+	# for now, let's remove all the "a" tags 
+	return rec_tag.sub("", output)
+	#tags = [m.group(1) for m in rec_tag.finditer(output)]
+	#for tag in tags:
 		# if tag in global_index:
 		# 	#print "Found: %s => %s"%(str(tag), str(global_index[tag]))
 		# 	output = output.replace(tag, global_index[tag])
 		# else:
-		output = output.replace(tag, "")
+	#	output = output.replace(tag, "")
 			
 	# remove missing targets
-	output = rec_unfound_tag.sub("", output)
-	
-	return output
+	#output = rec_unfound_tag.sub("", output)
+	#return output
 
 def handle_ref_node(entry_node, section_title):
 	print "handle_ref_node: NOT IMPLEMENTED"
@@ -236,6 +237,7 @@ def create_api_man(html_file):
 
 	# stripping out the url-based references and change them to local-page references
 	content = re.sub(r'<a([^>]*) href="http://docs.nvidia.com/cuda/[a-z-]+/index.html#', r'<a\1 href="#', content)
+	content = re.sub(r'<a([^>]*) href="index.html#', r'<a\1 href="#', content)
 	
 	# removing unnecessary <div> before struct names
 	content = re.sub(r'(struct&nbsp;</span><span class="member_name">\n *)<div>(<a[^>]+>[^<]+</a>)</div>', r'\1\2', content, flags=re.MULTILINE)
