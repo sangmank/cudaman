@@ -1,0 +1,3 @@
+.TH "$man_title$" $man_sec$ "$date$" "$man_lfooter$" "$man_cheader$"
+.PP
+$body$
