@@ -185,22 +185,22 @@ def process_block(blk, name_root, ext):
 	# <div class="topic reference apiRef apiPackage cppModule" id="group__CUDART__STREAM"><a name="group__CUDART__STREAM" shape="rect">
 	#   <h4 class="fake_sectiontitle member_header"> Typedefs </h4>
 	#   <dl class="members"> ...... </dl> 
-    #   <h4 class="fake_sectiontitle member_header">Functions</h4>
-    #   <dl class="members"> ...... </dl>
-    #   <div class="description">
-    #     <h4 class="sectiontitle">Typedefs</h4>
-    #     <dl class="description"> ... many typedefs ... <d/>
-    #   </div>
-    #   <div class="description">
-    #     <h4 class="sectiontitle">Functions</h4>
-    #     <dl class="description"> ... many functions .. <dl/>
-    #   </div>
-    # </div>
+	#   <h4 class="fake_sectiontitle member_header">Functions</h4>
+	#   <dl class="members"> ...... </dl>
+	#   <div class="description">
+	#     <h4 class="sectiontitle">Typedefs</h4>
+	#     <dl class="description"> ... many typedefs ... <d/>
+	#   </div>
+	#   <div class="description">
+	#     <h4 class="sectiontitle">Functions</h4>
+	#     <dl class="description"> ... many functions .. <dl/>
+	#   </div>
+	# </div>
 
 	# description of each entry (in <dl class="description">
 	# <dt class="description"></dt> 
-    # <dd class="description"><div class="section"> .. </div></dd>
-    #
+	# <dd class="description"><div class="section"> .. </div></dd>
+	#
 	print "div %s"%(blk[blk.find("id="):blk.find("\"", blk.find("id=")+4)+1])
 	
 	blk = preprocess_block(blk)
@@ -227,10 +227,6 @@ def process_block(blk, name_root, ext):
 			print "ERROR: Inappropriate class for ctxt (%s)" % ctxt_class
 	
 	# TODO: post processing?
-
-def html2rst(html_file):
-    p = subprocess.Popen(['pandoc', '--from=html', '--to=rst', '--output=%s.rst'%(html_file[:html_file.find(".")]), html_file ])
-    return p.communicate()[0]
 
 def create_api_man(html_file):
 	name_root, name_ext = os.path.splitext(html_file)
