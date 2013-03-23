@@ -164,6 +164,10 @@ def preprocess_block(blk):
 	# removing zero-width spaces (U+200B)
 	blk = blk.replace(chr(0xe2) + chr(0x80) + chr(0x8b), '')
 
+	# replacing tt tags with strong tags
+	blk = blk.replace('<tt ', '<b ')
+	blk = blk.replace('</tt>', '</b>')
+
 	# turning headers into h1 (to create .TH in man files for these headers)
 	blk = blk.replace('<p class="p apiDesc_subtitle"><strong class="ph b">See also:</strong></p>',
 					  '<h1>See Also</h1>')
