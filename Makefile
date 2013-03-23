@@ -1,18 +1,22 @@
+#!/usr/bin/make -f
+
 SECTION ?= 3
 OUT_DIR ?= out
 INSTALL_DIR ?= ~/man/man$(SECTION)
 
 SHELL := /bin/bash
 
-TARGETS := cuda-driver-api.done cuda-runtime-api.done cuda-math-api.done
+TARGETS := cuda-driver-api cuda-runtime-api cuda-math-api
 
-all: $(OUT_DIR) $(TARGETS)
+OBJS := $(addprefix $(OUT_DIR)/, $(addsuffix .done, $(TARGETS)))
+
+all: $(OUT_DIR) $(OBJS)
 
 $(OUT_DIR):
 	mkdir -p $(OUT_DIR)
 
 %.html:
-	wget http://docs.nvidia.com/cuda/$(@:.html=)/index.html -O $@
+	wget http://docs.nvidia.com/cuda/$(patsubst $(OUT_DIR)/%.html,%, $@)/index.html -O $@
 
 %.done: %.html
 	./cudaman.py -o $(OUT_DIR) -s $(SECTION) $<
@@ -25,4 +29,4 @@ install:
 	mandb
 
 clean:
-	rm $(TARGETS)
+	rm -f $(OBJS)
